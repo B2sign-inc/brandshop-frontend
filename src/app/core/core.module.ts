@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NProgressInterceptor } from './http/interceptors/nprogress.interceptor';
 import { ApiService } from '../shared/';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -11,7 +13,9 @@ import { ApiService } from '../shared/';
     RouterModule,
     HttpClientModule,
   ],
-  declarations: [],
+  declarations: [
+    NavComponent,
+    FooterComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -20,5 +24,9 @@ import { ApiService } from '../shared/';
     },
     ApiService
   ],
+  exports: [
+    NavComponent,
+    FooterComponent
+  ]
 })
 export class CoreModule { }
