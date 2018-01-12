@@ -8,21 +8,31 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from './layout/layout.module';
+import { UserModule } from './user/user.module';
+import { CartModule } from './cart/cart.module';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+
     AppRoutingModule,
-    NgbModule.forRoot(),
 
     CoreModule,
     SharedModule,
     AuthModule,
+    UserModule,
+    CartModule,
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

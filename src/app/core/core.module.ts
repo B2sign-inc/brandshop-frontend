@@ -4,18 +4,20 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NProgressInterceptor } from './http/interceptors/nprogress.interceptor';
 import { ApiService } from '../shared/';
-import { NavComponent } from './nav/nav.component';
-import { FooterComponent } from './footer/footer.component';
+
+import { MatIconModule, MatToolbarModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
+
+    MatIconModule,
+    MatToolbarModule,
   ],
   declarations: [
-    NavComponent,
-    FooterComponent],
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -25,8 +27,6 @@ import { FooterComponent } from './footer/footer.component';
     ApiService
   ],
   exports: [
-    NavComponent,
-    FooterComponent
   ]
 })
 export class CoreModule { }
