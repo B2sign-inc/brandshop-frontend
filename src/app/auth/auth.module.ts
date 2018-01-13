@@ -9,7 +9,6 @@ import { RegisterComponent } from './register/register.component';
 import { AuthService, AuthGuard } from '../shared';
 
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatIconModule } from '@angular/material';
-import { ListErrorsComponent } from './list-errors/list-errors.component';
 
 @NgModule({
   imports: [
@@ -22,7 +21,7 @@ import { ListErrorsComponent } from './list-errors/list-errors.component';
     MatInputModule,
     MatIconModule,
   ],
-  declarations: [LoginComponent, RegisterComponent, ListErrorsComponent],
+  declarations: [LoginComponent, RegisterComponent],
   providers: [
     AuthService,
     AuthGuard,
