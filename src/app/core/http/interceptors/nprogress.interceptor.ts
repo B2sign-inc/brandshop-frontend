@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
-import NProgress from 'nprogress/nprogress.js';
+import * as NProgress from 'nprogress/nprogress.js';
 
 @Injectable()
 export class NProgressInterceptor implements HttpInterceptor {
