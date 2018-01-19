@@ -1,6 +1,7 @@
+<ng-progress color="blue" [spinner]="false"></ng-progress>
 <mat-toolbar>
   <a class="link" routerLink='/'>Brandshop</a>
   <span class="spacer"></span>
-  <button mat-mini-fab color="primary"><mat-icon class="mat-24" (click)="goToUser()">account_circle</mat-icon></button>
-  <button mat-mini-fab><mat-icon class="mat-24" (click)="goToCart()">shopping_cart</mat-icon></button>
+  <button mat-mini-fab color="{{ userIconColor }}" (click)="goToUser()" [matTooltip]="userTooltipName"><mat-icon class="mat-24">account_circle</mat-icon></button>
+  <button mat-mini-fab (click)="goToCart()"><mat-icon class="mat-24">shopping_cart</mat-icon></button>
 </mat-toolbar>

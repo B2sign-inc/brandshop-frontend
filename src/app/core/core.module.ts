@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NProgressInterceptor } from './http/interceptors/nprogress.interceptor';
-import { ApiService } from '../shared/';
+import { ApiService, TokenService } from '../shared/';
 
 import { MatIconModule, MatToolbarModule } from '@angular/material';
+import { TokenInterceptor } from './http/interceptors/token.interceptor';
+
 
 @NgModule({
   imports: [
@@ -21,10 +22,11 @@ import { MatIconModule, MatToolbarModule } from '@angular/material';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: NProgressInterceptor,
+      useClass: TokenInterceptor,
       multi: true,
     },
-    ApiService
+    ApiService,
+    TokenService,
   ],
   exports: [
   ]

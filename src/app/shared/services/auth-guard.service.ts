@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
+
 import {
   CanActivate, Router,
   ActivatedRouteSnapshot,
@@ -12,20 +17,14 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let url: string = state.url;
-    return this.checkLogin(url);
-  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    this.authService.setRedirectUrl(state.url);
 
-  checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true;
-    }
-
-    this.authService.redirectUrl = url;
-
-    this.router.navigate(['/login']);
-    return false;
-
+    return this.authService.isLoggedIn().do(isLoggined => {
+      if (!isLoggined) {
+        this.router.navigate(['/login']);
+      }
+      return isLoggined;
+    }).take(1);
   }
 }
