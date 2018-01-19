@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, MatMenuModule } from '@angular/material';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
     MatToolbarModule,
     MatButtonModule,
     MatTooltipModule,
+    MatMenuModule,
 
     NgProgressModule.forRoot(),
     NgProgressHttpModule,

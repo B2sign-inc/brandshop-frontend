@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService, User } from '../../shared';
@@ -10,31 +10,26 @@ import { AuthService, User } from '../../shared';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isLoggedIn : Observable<boolean>;
 
   userIconColor: string = '';
-
-  user: User;
-
   userTooltipName: string;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn();
+
     this.authService.isLoggedIn().subscribe(isLoggedIn => {
       this.userIconColor = isLoggedIn ? 'primary' : '';
     });
+
     this.authService.currentUser().subscribe(user => {
-      this.user = user;
-      this.userTooltipName = user.firstname + ' ' + user.lastname;
+      this.userTooltipName = user.firstname && user.lastname ?  user.firstname + ' ' + user.lastname : '';
     });
   }
 
-  goToCart() {
-    this.router.navigate(['cart']);
-  }
+  logout() {
 
-  goToUser() {
-    this.router.navigate(['user']);
   }
-
 }

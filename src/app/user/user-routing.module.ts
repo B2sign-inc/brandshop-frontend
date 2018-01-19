@@ -9,7 +9,7 @@ const routes: Routes = [
     redirectTo: 'users/profile',
     pathMatch: 'full'
   }, {
-    path: 'users/profile',
+    path: 'user/profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
   }
