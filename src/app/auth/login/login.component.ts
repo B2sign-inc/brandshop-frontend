@@ -45,7 +45,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentials).subscribe(data => {
       // set user data
       this.authService.populate();
-      this.router.navigate([this.authService.getRedirectUrl()]);
+
+      const redirectUrl = this.authService.getRedirectUrl() ? this.authService.getRedirectUrl() : '/';
+
+      this.router.navigate([redirectUrl]);
     });
   }
 

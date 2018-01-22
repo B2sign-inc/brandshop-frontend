@@ -4,3 +4,4 @@ export * from './auth-guard.service';
 export * from './token.service';
 export * from './product.service';
 export * from './category.service';
+export * from './message.service';
