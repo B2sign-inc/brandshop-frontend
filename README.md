@@ -29,13 +29,13 @@ Then run `npm run serve`
 
 ### Foundation:
 
-- [] Support different type of message (MessageService)
+- [ ] Support different type of message (MessageService)
 
 ### Feature:
 
-- [] Register
-- [] Category And Product Page
-- [] Shopping Cart Page
+- [ ] Register
+- [ ] Category And Product Page
+- [ ] Shopping Cart Page
 
 
 ## Reference
