@@ -8,7 +8,13 @@ import { RegisterComponent } from './register/register.component';
 
 import { AuthService, AuthGuard } from '../shared';
 
-import { MatFormFieldModule, MatButtonModule, MatInputModule, MatIconModule } from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatIconModule,
+  MatCardModule,
+} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -20,6 +26,7 @@ import { MatFormFieldModule, MatButtonModule, MatInputModule, MatIconModule } fr
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
   ],
   declarations: [LoginComponent, RegisterComponent],
   providers: [
