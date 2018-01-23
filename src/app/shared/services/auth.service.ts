@@ -46,6 +46,10 @@ export class AuthService {
     });
   }
 
+  register(data): Observable<any> {
+    return this.apiService.post('register', data);
+  }
+
   setCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
   }
