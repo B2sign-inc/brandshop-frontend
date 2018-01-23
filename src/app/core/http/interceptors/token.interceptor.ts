@@ -46,6 +46,10 @@ export class TokenInterceptor implements HttpInterceptor {
           case 400:
             return this.handle400Error(error);
           case 401:
+            // unnecessary to refresh token while login
+            if (error.url.indexOf('login') !== -1) {
+              return this.handleDefaultError(error);
+            }
             return this.handle401Error(req, next);
           default:
             return this.handleDefaultError(error);

@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ProfileComponent } from './profile/profile.component';
+import { VerifyComponent } from './verify/verify.component';
+import { UserService } from '../shared';
 
 @NgModule({
   imports: [
     CommonModule,
     UserRoutingModule
   ],
-  declarations: [ProfileComponent]
+  providers: [UserService],
+  declarations: [ProfileComponent, VerifyComponent]
 })
 export class UserModule { }
