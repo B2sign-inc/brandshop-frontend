@@ -11,24 +11,73 @@
             <button mat-button *ngIf="authForm.get('email').value" matSuffix mat-icon-button aria-label="Clear" (click)="authForm.reset({email: ''})">
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error *ngIf="authForm.get('email').hasError('email') && !authForm.get('email').hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="authForm.get('email').hasError('required')">
+              Email is
+              <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.get('email').hasError('custom')">
+              {{ authForm.get('email').getError('custom') }}
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="name" placeholder="Name" formControlName="name" />
-            <button mat-button *ngIf="authForm.get('name').value" matSuffix mat-icon-button aria-label="Clear" (click)="authForm.reset({name: ''})">
+            <input matInput type="text" placeholder="Firt name" formControlName="firstname" />
+            <button mat-button *ngIf="authForm.get('firstname').value" matSuffix mat-icon-button aria-label="Clear" (click)="authForm.reset({firstname: ''})">
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error *ngIf="authForm.get('firstname').hasError('required')">
+              Firt name is
+              <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.get('firstname').hasError('custom')">
+              {{ authForm.get('firstname').getError('custom') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Last name" formControlName="lastname" />
+            <button mat-button *ngIf="authForm.get('lastname').value" matSuffix mat-icon-button aria-label="Clear" (click)="authForm.reset({lastname: ''})">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="authForm.get('lastname').hasError('required')">
+              Last name is
+              <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.get('lastname').hasError('custom')">
+              {{ authForm.get('lastname').getError('custom') }}
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
             <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-error *ngIf="authForm.get('password').hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.get('password').hasError('custom')">
+              {{ authForm.get('password').getError('custom') }}
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
             <input matInput placeholder="Password Confirmation" type="password" formControlName="password_confirmation">
+            <mat-error *ngIf="!authForm.get('password_confirmation').hasError('required') && authForm.get('password_confirmation').hasError('unMatched') ">
+              Password Confirmation is not matched to password
+            </mat-error>
+            <mat-error *ngIf="authForm.get('password_confirmation').hasError('required')">
+              Password Confirmation is
+              <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.get('password').hasError('custom')">
+              {{ authForm.get('password').getError('custom') }}
+            </mat-error>
           </mat-form-field>
         </div>
       </mat-card-content>

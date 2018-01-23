@@ -30,10 +30,6 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-    this.authForm.setValue({
-      email: 'ishaobinliang@gmail.com',
-      password: 'test'
-    })
   }
 
   ngOnDestroy() {
@@ -49,6 +45,8 @@ export class LoginComponent implements OnInit {
       const redirectUrl = this.authService.getRedirectUrl() ? this.authService.getRedirectUrl() : '/';
 
       this.router.navigate([redirectUrl]);
+    }, error => {
+
     });
   }
 
