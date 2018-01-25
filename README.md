@@ -19,9 +19,12 @@ Then run `npm run serve`
 
 [Document](https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md)
 
-## UI Material
+## UI
 
-[Document](https://material.angular.io)
+[Flex Layout](https://github.com/angular/flex-layout/)
+
+[Material](https://material.angular.io)
+
 [Icon](https://material.io/icons/)
 
 

@@ -1,3 +1,9 @@
-<p>
-  category works!
-</p>
+<mat-nav-list dense>
+  <ng-template ngFor let-category [ngForOf]="categories">
+    <h3 matSubheader>{{ category.title }}</h3>
+    <mat-list-item *ngFor="let subCategory of category.children">
+      <a matLine routerLink="/categories/{{ subCategory.id }}/products">{{ subCategory.title }}</a>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-template>
+</mat-nav-list>

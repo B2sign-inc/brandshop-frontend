@@ -1,3 +1,11 @@
-<p>
-  product-list works!
-</p>
+<div *ngFor="let chunkedProducts of products" class="row" fxLayout="row" fxLayoutGap="20px" flex>
+  <mat-card *ngFor="let product of chunkedProducts" (click)="goToProductDetail(product)" fxFlex="50">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <img *ngIf="product.images" mat-card-image src="{{ product.images[0] }}" alt="{{ product.name }}">
+    <mat-card-content>
+      <p>{{ product.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
