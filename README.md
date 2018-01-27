@@ -36,9 +36,14 @@ Then run `npm run serve`
 
 ### Feature:
 
-- [ ] Register
-- [ ] Category And Product Page
-- [ ] Shopping Cart Page
+- [x] Register
+- [x] Category And Product Page
+- [x] Shopping Cart Page
+- [ ] Checkout Process
+- [ ] Delivery Options
+- [ ] Payment Management
+- [ ] Order Page
+- [ ] Message Page
 
 
 ## Reference
@@ -48,3 +53,8 @@ Then run `npm run serve`
 
 #### Http Interceptor:
 - [Handling Refresh Token with New HttpInterceptor](https://www.intertech.com/Blog/angular-4-tutorial-handling-refresh-token-with-new-httpinterceptor/)
+
+#### Project:
+- [realworld](https://github.com/gothinkster/angular-realworld-example-app)
+- [angularspree](https://github.com/aviabird/angularspree)
+- [simple-shopping-cart](https://github.com/jonsamwell/angular-simple-shopping-cart/blob/master/src/app/models/shopping-cart.model.ts)
