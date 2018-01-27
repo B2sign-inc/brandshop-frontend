@@ -8,7 +8,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product/product.component';
 import { DefaultComponent } from './default/default.component';
 
-import { MatListModule, MatCardModule } from '@angular/material';
+import { MatListModule, MatCardModule, MatButtonModule } from '@angular/material';
 import { CategoryService, ProductService } from '../shared';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -20,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
     MatListModule,
     MatCardModule,
+    MatButtonModule,
   ],
   providers: [
     CategoryService,

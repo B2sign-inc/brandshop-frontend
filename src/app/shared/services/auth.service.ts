@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { TokenService } from './token.service';
 import { ApiService } from './api.service';
-import { User } from '../models/user';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {

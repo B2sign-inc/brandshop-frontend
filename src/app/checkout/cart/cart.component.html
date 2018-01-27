@@ -1,0 +1,15 @@
+<mat-list>
+  <mat-list-item *ngFor="let cartItem of cart.items">
+    {{ cartItem.product.name }}
+    x {{ cartItem.quantity }}
+    <button mat-mini-fab color="warn">
+        <mat-icon class="mat-24" (click)="removeItem(cartItem)">remove_shopping_cart</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<div *ngIf="cart.items.length">
+  <button mat-raised-button color="primary" (click)="emptyCart()">Empty Cart</button>
+
+  Total: {{ cart.total }}
+</div>

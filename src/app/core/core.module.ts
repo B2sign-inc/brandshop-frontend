@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ApiService, TokenService, MessageService } from '../shared';
+import { ApiService, TokenService, MessageService, CartService } from '../shared';
 
 import { MatIconModule, MatToolbarModule, MatSnackBarModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { TokenInterceptor } from './http/interceptors/token.interceptor';
@@ -39,6 +39,7 @@ import { ErrorHandlerInterceptor } from './http/interceptors/error-hanlder.inter
     ApiService,
     TokenService,
     MessageService,
+    CartService,
   ],
   exports: [
   ]

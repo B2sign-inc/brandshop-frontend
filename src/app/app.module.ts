@@ -11,8 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { UserModule } from './user/user.module';
-import { CartModule } from './cart/cart.module';
 import { HomeModule } from './home/home.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 
 
@@ -32,8 +32,8 @@ import { HomeModule } from './home/home.module';
     SharedModule,
     AuthModule,
     UserModule,
-    CartModule,
     HomeModule,
+    CheckoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
