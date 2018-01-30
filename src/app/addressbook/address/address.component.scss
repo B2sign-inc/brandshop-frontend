@@ -1,0 +1,52 @@
+.address-page {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .address-page-container {
+
+    min-width: 300px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+
+    .mat-table {
+      display: block;
+    }
+
+    .mat-row,
+    .mat-header-row {
+      display: flex;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 24px;
+    }
+
+    .mat-cell,
+    .mat-header-cell {
+      flex: 1;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+
+    .paging {
+
+      margin-top: 20px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      text-align: center;
+
+      div {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      .page-item {
+        cursor: pointer;
+        margin-left: 15px;
+      }
+    }
+  }
+}

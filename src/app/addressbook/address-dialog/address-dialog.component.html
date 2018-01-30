@@ -1,0 +1,77 @@
+<div class="address-dialog-page">
+  <h2 mat-dialog-title>{{ (data.id) ? 'Edit':'New' }} Address</h2>
+
+  <form [formGroup]="addressForm">
+
+    <mat-dialog-content>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="First Name" formControlName="first_name" required />
+          <mat-error *ngIf="addressForm.controls.first_name.invalid">
+            First Name is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName="last_name" required />
+          <mat-error *ngIf="addressForm.controls.last_name.invalid">
+            Last name is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="dialog-row">
+        <mat-form-field>
+          <input matInput placeholder="Street Address" formControlName="street_address" required />
+          <mat-error *ngIf="addressForm.controls.street_address.invalid">
+            Street Address is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="dialog-row">
+        <mat-form-field>
+          <input matInput placeholder="Extra Address" formControlName="extra_address" />
+        </mat-form-field>
+      </div>
+      <div class="dialog-row">
+        <mat-form-field>
+          <input matInput placeholder="City" formControlName="city" required />
+          <mat-error *ngIf="addressForm.controls.city.invalid">
+            City is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="State" #stateSelect formControlName="state" required>
+            <mat-option *ngFor="let us of data.usa_states" [value]="us">
+              {{ us }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="addressForm.get('state').hasError('required')">
+            State is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Zipcode" formControlName="postcode" required />
+          <mat-error *ngIf="addressForm.controls.postcode.invalid">
+            Zipcode is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="dialog-row">
+        <mat-form-field>
+          <input matInput placeholder="Telephone" formControlName="telephone" />
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="addressForm.value" [disabled]="!addressForm.valid">Save</button>
+    </mat-dialog-actions>
+  </form>
+</div>

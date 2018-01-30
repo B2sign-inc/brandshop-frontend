@@ -7,3 +7,4 @@ export * from './category.service';
 export * from './message.service';
 export * from './user.service';
 export * from './cart.service';
+export * from './address.service';
