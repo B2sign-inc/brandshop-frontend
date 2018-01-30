@@ -8,7 +8,7 @@
     </button>
     <mat-menu #userMenu="matMenu">
       <a mat-menu-item *ngIf="!(isLoggedIn | async)" routerLink="/login">Login</a>
-      <a mat-menu-item *ngIf="(isLoggedIn | async)" routerLink="/user/profile">Profile</a>
+      <a mat-menu-item *ngIf="(isLoggedIn | async)" routerLink="/user">My Account</a>
       <a mat-menu-item *ngIf="(isLoggedIn | async)" (click)="logout()">Logout</a>
     </mat-menu>
 
