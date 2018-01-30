@@ -1,0 +1,37 @@
+.card {
+  margin: 20px;
+  padding: 0px;
+
+  .toolbar {
+    background: #ffffff;
+
+    .action {
+      padding: 0 14px;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+  }
+
+  .empty_cart {
+    text-align: center;
+    padding: 30px;
+  }
+
+  .summary {
+    padding: 10px;
+
+    .row {
+      margin: 5px 0;
+
+      .price {
+        font-weight: bold;
+      }
+      .right {
+        float: right;
+        margin-right: 5px;
+      }
+    }
+  }
+}
