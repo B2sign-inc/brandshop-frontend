@@ -1,0 +1,55 @@
+<div class="address-page">
+
+  <mat-toolbar>
+    <span>Address Book</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="openAddressDialog()">
+      <mat-icon>add</mat-icon> Address
+    </button>
+  </mat-toolbar>
+
+  <div class="address-page-container mat-elevation-z8">
+
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Name</div>
+        <div class="mat-header-cell">Street Address</div>
+        <div class="mat-header-cell">Extra Address</div>
+        <div class="mat-header-cell">City</div>
+        <div class="mat-header-cell">State</div>
+        <div class="mat-header-cell">Zipcode</div>
+        <div class="mat-header-cell">Telephone</div>
+        <div class="mat-header-cell"></div>
+      </div>
+      <div class="mat-row" *ngFor="let address of addresses; index as i;">
+        <div class="mat-cell">{{address.first_name+' '+address.last_name}}</div>
+        <div class="mat-cell">{{address.street_address}}</div>
+        <div class="mat-cell">{{address.extra_address}}</div>
+        <div class="mat-cell">{{address.city}}</div>
+        <div class="mat-cell">{{address.state}}</div>
+        <div class="mat-cell">{{address.postcode}}</div>
+        <div class="mat-cell">{{address.telephone}}</div>
+        <div class="mat-cell">
+          <button mat-raised-button (click)="openAddressDialog(i)">Edit</button>
+          <button mat-raised-button color="warn" (click)="destroy(i)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="paging" *ngIf="addresses.length > 0">
+      <div>
+        <span class="page-item" [ngClass]="{'active': pageNumber === currentPage}" *ngFor="let pageNumber of totalPages" (click)="setPageTo(pageNumber)">
+          {{ pageNumber }}
+        </span>
+      </div>
+
+      <div>
+        Items per page:
+        <span>{{ perPage }}</span>,
+        <span>{{ pageFrom }}</span> -
+        <span>{{ pageTo }}</span> of
+        <span>{{ pageTotal }}</span>
+      </div>
+    </div>
+  </div>
+</div>
