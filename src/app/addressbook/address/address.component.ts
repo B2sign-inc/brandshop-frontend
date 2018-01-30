@@ -61,7 +61,7 @@ export class AddressComponent implements OnInit {
   }
 
   destroy(id) {
-    if (id && this.addresses[id]) {
+    if (this.addresses[id]) {
       this.addressService.destroy(this.addresses[id].id).subscribe(
         result => {
           this.addresses.splice(id, 1);
@@ -71,7 +71,7 @@ export class AddressComponent implements OnInit {
   }
 
   openAddressDialog(id): void {
-    if (id) {
+    if (this.addresses[id]) {
       this.addresses[id].usa_states = this.address.usa_states;
       this.submitAddressDialog(this.addresses[id], id);
     } else {
@@ -89,7 +89,7 @@ export class AddressComponent implements OnInit {
         if (result) {
           this.addressService.save(result).subscribe(
             result => {
-              if (index) {
+              if (this.addresses[index]) {
                 this.addresses[index] = result['data'];
               } else {
                 this.addresses.push(result['data']);
