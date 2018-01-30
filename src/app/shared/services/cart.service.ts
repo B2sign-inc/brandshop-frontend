@@ -27,7 +27,6 @@ export class CartService {
     if (item === undefined) {
       item = new CartItem();
       item.product = product;
-      item.quantity = 0;
       cart.items.push(item);
     }
 

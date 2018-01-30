@@ -23,7 +23,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
           .map((value) => value.join(' '))
           .join(' ');
       } else {
-        message = error.message;
+        message = error
       }
 
       // TODO report and render error

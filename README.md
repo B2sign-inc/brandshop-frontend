@@ -48,13 +48,16 @@ Then run `npm run serve`
 
 ## Reference
 
-#### AuthService:
+#### AuthService
 - [RxJS-利用 BehaviorSubject 來管理使用者登入狀態](https://blog.kevinyang.net/2017/02/26/rxjs-context-demo-3/)
 
-#### Http Interceptor:
+#### Http Interceptor
 - [Handling Refresh Token with New HttpInterceptor](https://www.intertech.com/Blog/angular-4-tutorial-handling-refresh-token-with-new-httpinterceptor/)
 
-#### Project:
+#### Material Tips
+- [angular-material-data-table](https://blog.angular-university.io/angular-material-data-table/)
+
+#### Project
 - [realworld](https://github.com/gothinkster/angular-realworld-example-app)
 - [angularspree](https://github.com/aviabird/angularspree)
 - [simple-shopping-cart](https://github.com/jonsamwell/angular-simple-shopping-cart/blob/master/src/app/models/shopping-cart.model.ts)

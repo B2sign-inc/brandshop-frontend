@@ -1,15 +1,64 @@
-<mat-list>
-  <mat-list-item *ngFor="let cartItem of cart.items">
-    {{ cartItem.product.name }}
-    x {{ cartItem.quantity }}
-    <button mat-mini-fab color="warn">
-        <mat-icon class="mat-24" (click)="removeItem(cartItem)">remove_shopping_cart</mat-icon>
-    </button>
-  </mat-list-item>
-</mat-list>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-toolbar class="toolbar" color="#ffffff">
+      <span>Cart</span>
+      <span class="spacer"></span>
+      <button mat-icon-button class="action">
+        <mat-icon class="mat-24" (click)="emptyCart()">remove_shopping_cart</mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-card-header>
 
-<div *ngIf="cart.items.length">
-  <button mat-raised-button color="primary" (click)="emptyCart()">Empty Cart</button>
+  <mat-card-content >
+    <mat-table #table [dataSource]="dataSource" *ngIf="cart.items.length; else emptyCartContainer">
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+        <mat-cell *matCellDef="let cartItem"> {{ cartItem.product.name }} </mat-cell>
+      </ng-container>
 
-  Total: {{ cart.total }}
-</div>
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let cartItem"> {{ cartItem.quantity }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let cartItem"> {{ cartItem.product.price }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">
+          <button mat-icon-button color="warn">
+            <mat-icon class="mat-24" (click)="removeItem(cartItem)">close</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let cartItem; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <ng-template #emptyCartContainer>
+      <h2 class="empty_cart">Empty Cart</h2>
+    </ng-template>
+
+  </mat-card-content>
+
+  <div class="summary" *ngIf="cart.items.length">
+    <div fxLayout="row" class="row" flex fxLayoutGap="20px">
+      <div fxFlex="70">
+      </div>
+      <div fxFlex="30">
+        Total: <span class="price right">{{ cart.total }}</span>
+      </div>
+    </div>
+    <div fxLayout="row" class="row" flex fxLayoutGap="20px">
+      <div fxFlex="70">
+      </div>
+      <div fxFlex="30">
+        <button mat-raised-button color="primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</mat-card>
