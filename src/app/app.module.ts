@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AddressbookModule } from './addressbook/addressbook.module';
+import { EmailmessageModule } from './emailmessage/emailmessage.module';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { AddressbookModule } from './addressbook/addressbook.module';
     HomeModule,
     CheckoutModule,
     AddressbookModule,
+    EmailmessageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
