@@ -1,0 +1,37 @@
+<div class="message-view-page">
+  <div *ngIf="emailMessage">
+    <mat-toolbar>
+      <span>Message - {{emailMessage.subject}}</span>
+      <span class="spacer"></span>
+      <button mat-raised-button routerLink="/message">
+        <mat-icon>undo</mat-icon> Back
+      </button>
+    </mat-toolbar>
+
+    <div class="message-view-page-container mat-elevation-z8">
+      <mat-card class="message-view-card">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="title">Subject:</div>
+            {{emailMessage.subject}}
+          </mat-card-title>
+          <mat-card-subtitle>
+            <div class="title">To:</div> {{emailMessage.to_name}}
+            <{{emailMessage.to_address}}>
+          </mat-card-subtitle>
+          <mat-card-subtitle>
+            <div class="title">Sent:</div> {{emailMessage.date_sent}}
+          </mat-card-subtitle>
+          <mat-card-subtitle>
+            <div class="title">Body:</div>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{emailMessage.body}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

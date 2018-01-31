@@ -1,0 +1,40 @@
+<div class="message-page">
+  <mat-toolbar>
+    <span>My Messages</span>
+    <span class="spacer"></span>
+  </mat-toolbar>
+
+  <div class="message-page-container mat-elevation-z8">
+
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Subject</div>
+        <div class="mat-header-cell">Date Sent</div>
+      </div>
+      <div class="mat-row" *ngFor="let em of emailMessages; index as i;">
+        <div class="mat-cell">
+          <a routerLink="/message/{{em.id}}">
+            {{em.subject}}
+          </a>
+        </div>
+        <div class="mat-cell">{{em.date_sent}}</div>
+      </div>
+    </div>
+
+    <div class="paging" *ngIf="emailMessages.length > 0">
+      <div>
+        <span class="page-item" [ngClass]="{'active': pageNumber === currentPage}" *ngFor="let pageNumber of totalPages" (click)="setPageTo(pageNumber)">
+          {{ pageNumber }}
+        </span>
+      </div>
+
+      <div>
+        Items per page:
+        <span>{{ perPage }}</span>,
+        <span>{{ pageFrom }}</span> -
+        <span>{{ pageTo }}</span> of
+        <span>{{ pageTotal }}</span>
+      </div>
+    </div>
+  </div>
+</div>
