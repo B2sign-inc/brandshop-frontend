@@ -11,7 +11,8 @@ const routes: Routes = [
     pathMatch: 'full'
   }, {
     path: 'checkout/cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'checkout/delivery',
     component: DeliveryComponent,

@@ -26,11 +26,11 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   emptyCart(): void {
-    this.cartService.emptyCart();
+    this.cartService.emptyCart().subscribe();
   }
 
   removeItem(cartItem: CartItem): void {
-    this.cartService.removeItem(cartItem);
+    this.cartService.removeItem(cartItem).subscribe();
   }
 
   ngOnDestroy() {

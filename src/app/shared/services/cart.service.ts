@@ -4,64 +4,93 @@ import { Product } from '../models/product.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Cart } from '../models/cart.model';
 import { Observable } from 'rxjs/Observable';
-
-const CART_KEY = 'cart';
+import { ApiService } from './api.service';
 
 @Injectable()
 export class CartService {
 
   private cartSubject: BehaviorSubject<Cart>;
   private cartObservable: Observable<Cart>;
+  private loaded = false;
 
-  constructor() {
-    this.cartSubject = new BehaviorSubject<Cart>(this.retrieve());
+  constructor(private apiSerivce: ApiService) {
+    this.cartSubject = new BehaviorSubject<Cart>(new Cart());
     this.cartObservable = this.cartSubject.asObservable();
-
-    this.cartObservable.subscribe(cart => this.save(cart));
+    this.load();
   }
 
-  addItem(product: Product, quantity: number): void {
-    let cart = this.cartSubject.getValue();
-    let item = cart.items.find((cartItem) => cartItem.product.id === product.id);
+  addItem(product: Product, quantity: number): Observable<Cart> {
+    let currentCart = this.cartSubject.getValue();
+    let cartItem;
 
-    if (item === undefined) {
-      item = new CartItem();
-      item.product = product;
-      cart.items.push(item);
+    // product is in the cart already
+    // so you are supposed to update the quantity
+    if (cartItem = currentCart.items.find(item => item.product.id === product.id)) {
+
+      return this.updateItem(cartItem, cartItem.quantity + quantity);
+    } else {
+      return this.apiSerivce.post('carts', {
+        product_id: product.id,
+        quantity: quantity
+      }).map(data => {
+        const cart = Cart.cast(data['data']);
+        this.dispatch(cart);
+
+        return cart;
+      });
     }
-
-    item.quantity += quantity;
-
-    this.cartSubject.next(cart);
   }
 
-  removeItem(item: CartItem): void {
-    let cart = this.cartSubject.getValue();
-    cart.items = cart.items.filter(_item => _item !== item);
+  updateItem(cartItem: CartItem, quantity: number): Observable<Cart> {
+    let currentCart = this.cartSubject.getValue();
 
-    this.cartSubject.next(cart);
+    return this.apiSerivce.put(`carts/${cartItem.id}`, {
+      quantity: quantity
+    }).map(data => {
+      const cart = Cart.cast(data['data']);
+      this.dispatch(cart);
+
+      return cart;
+    });
   }
 
-  emptyCart(): void {
-    this.cartSubject.next(new Cart());
+  removeItem(cartItem: CartItem): Observable<Cart> {
+    return this.apiSerivce.delete(`carts/${cartItem.id}`).do(data => {
+      const cart = Cart.cast(data['data']);
+      this.dispatch(cart);
+
+      return cart;
+    });
+  }
+
+  emptyCart(): Observable<any> {
+    return this.apiSerivce.delete('carts/empty').do(data => {
+      this.dispatch(new Cart());
+    });
   }
 
   getCart(): Observable<Cart> {
     return this.cartObservable;
   }
 
-  private save(cart: Cart): void {
-    // TODO save to server
-    window.localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  load(): void {
+    if (!this.loaded) {
+      this.reload().subscribe(cart => {
+        this.loaded = true;
+      });
+    }
   }
 
-  private retrieve(): Cart {
-    // TODO retrieve from server
-    const storedCart = window.localStorage.getItem(CART_KEY);
-    if (storedCart) {
-      return Cart.cast(JSON.parse(storedCart));
-    }
+  reload(): Observable<Cart> {
+    return this.apiSerivce.get('carts').map(data => {
+      const cart = data['data'].items ? Cart.cast(data['data']) : new Cart();
+      this.dispatch(cart);
 
-    return new Cart();
+      return cart;
+    });
+  }
+
+  dispatch(cart: Cart) {
+    this.cartSubject.next(cart);
   }
 }
