@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService, Cart, CartItem } from '../../shared';
 import { Subscription } from 'rxjs/Subscription';
 import { MatTableDataSource } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,14 +15,17 @@ export class CartComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<CartItem>();
 
   cart: Cart = new Cart();
+
   cartSubscription: Subscription;
 
-  constructor(private cartService: CartService) {}
+  constructor(private activatedRoute: ActivatedRoute, private cartService: CartService) {}
 
   ngOnInit() {
-    this.cartSubscription = this.cartService.getCart().subscribe(cart => {
-      this.dataSource.data = cart.items;
-      this.cart = cart;
+    this.activatedRoute.data.subscribe((data: {isLoaded: Cart}) => {
+      this.cartSubscription = this.cartService.getCart().subscribe(cart => {
+        this.dataSource.data = cart.items;
+        this.cart = cart;
+      })
     });
   }
 
@@ -36,5 +40,4 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.cartSubscription.unsubscribe();
   }
-
 }

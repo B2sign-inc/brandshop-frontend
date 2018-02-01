@@ -3,25 +3,29 @@ import { Routes, RouterModule } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { DeliveryComponent } from './delivery/delivery/delivery.component';
 import { AuthGuard } from '../shared';
+import { CartResolver } from './cart/cart-resolver.service';
 
 const routes: Routes = [
   {
     path: 'checkout',
     redirectTo: 'checkout/cart',
+    canActivate: [AuthGuard],
     pathMatch: 'full'
   }, {
     path: 'checkout/cart',
     component: CartComponent,
-    canActivate: [AuthGuard]
+    resolve: {
+      isLoaded: CartResolver
+    }
   }, {
     path: 'checkout/delivery',
     component: DeliveryComponent,
-    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CartResolver]
 })
 export class CheckoutRoutingModule { }

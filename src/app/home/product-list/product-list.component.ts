@@ -19,15 +19,8 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.fetchProducts(params.id);
-    });
-  }
-
-  fetchProducts(categoryId: number): void {
-    this.categoryService.getProducts(categoryId).subscribe(data => {
-      // chunk to 2
-      this.products = _.chunk(data['data'], 2);
+    this.activatedRoute.data.subscribe((data: {products: Product[]}) => {
+      this.products = _.chunk(data.products, 2);
     });
   }
 
