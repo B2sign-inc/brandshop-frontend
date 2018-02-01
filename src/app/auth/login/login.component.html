@@ -29,6 +29,9 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="link">
+          <a routerLink="/password/forgot">Forgot Password?</a>
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button [disabled]="isSubmitting || !authForm.valid" color="primary" type="submit">Login</button>

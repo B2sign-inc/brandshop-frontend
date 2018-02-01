@@ -1,6 +1,16 @@
 .login-page {
   text-align: center;
 
+  .link {
+    font-size: 11px;
+    margin-left: 150px;
+
+      a {
+        text-decoration: none;
+        text-align: right;
+      }
+  }
+
   .mat-form-field {
     width: 240px;
   }
