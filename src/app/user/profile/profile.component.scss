@@ -1,0 +1,14 @@
+.profile-page {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .profile-page-container {
+
+    min-width: 300px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}

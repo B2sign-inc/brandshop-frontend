@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
@@ -9,13 +10,26 @@ import { UserService } from '../shared';
 
 import {
   MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
 } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     UserRoutingModule,
+
     MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
   ],
   providers: [UserService],
   declarations: [UserComponent, ProfileComponent, VerifyComponent]
