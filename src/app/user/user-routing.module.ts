@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../shared';
 import { VerifyComponent } from './verify/verify.component';
 import { UserComponent } from './user.component';
+import { PasswordComponent } from './password/password.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   }, {
     path: 'user/profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
+  }, {
+    path: 'user/password',
+    component: PasswordComponent,
     canActivate: [AuthGuard],
   },
 ];

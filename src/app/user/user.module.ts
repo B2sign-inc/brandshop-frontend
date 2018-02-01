@@ -16,6 +16,7 @@ import {
   MatInputModule,
   MatCardModule,
 } from '@angular/material';
+import { PasswordComponent } from './password/password.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,6 @@ import {
     MatCardModule,
   ],
   providers: [UserService],
-  declarations: [UserComponent, ProfileComponent, VerifyComponent]
+  declarations: [UserComponent, ProfileComponent, VerifyComponent, PasswordComponent]
 })
 export class UserModule { }
