@@ -6,9 +6,13 @@ import { AuthService, TokenService } from '../../../shared';
 import { Router } from '@angular/router/';
 
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/finally';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,6 +21,9 @@ export class TokenInterceptor implements HttpInterceptor {
    * @see https://github.com/angular/angular/issues/18224
    */
   private _authService: AuthService;
+
+  private isRefreshingToken: boolean = false;
+  private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
     private injector: Injector,
@@ -62,20 +69,37 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-    // refresh token
-    return this.authService().refreshToken()
-      .switchMap(token => {
-        if (Object.prototype.hasOwnProperty.call(token, 'access_token')) {
-          this.authService().setAuth(token);
-          return next.handle(this.newRequestWithToken(req, token['access_token']));
-        }
+    if (!this.isRefreshingToken) {
+      this.isRefreshingToken = true;
+      this.tokenSubject.next(null);
 
-        // If we don't get a new token, we are in trouble so logout.
-        // TODO
-        return this.handleCantGetNewToken();
-      }).catch(error => {
-        return this.handleCantGetNewToken();
-      });
+      // refresh token
+      return this.authService().refreshToken()
+        .switchMap(token => {
+          if (Object.prototype.hasOwnProperty.call(token, 'access_token')) {
+            this.authService().setAuth(token);
+            this.tokenSubject.next(token['access_token']);
+            return next.handle(this.newRequestWithToken(req, token['access_token']));
+          }
+
+          // If we don't get a new token, we are in trouble so logout.
+          // TODO
+          return this.handleCantGetNewToken();
+        }).catch(error => {
+          return this.handleCantGetNewToken();
+        }).finally(() => {
+          this.isRefreshingToken = false;
+        });
+    } else if (req.url.indexOf('token/refresh') !== -1) {
+      this.tokenSubject.complete();
+      return Observable.throw('refresh token 401.');
+    } else {
+      return this.tokenSubject
+        .filter(token => token !== null)
+        .take(1)
+        .switchMap(token => next.handle(this.newRequestWithToken(req, token)));
+    }
+
   }
 
   handle400Error(error) {
@@ -94,10 +118,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
   handleCantGetNewToken() {
     this.authService().purgeAuth();
-    return Observable.throw('');
+    this.redirectToLoin();
+    return Observable.throw('refresh token 401.');
   }
 
   redirectToLoin(): void {
-    this.router.navigate['/login'];
+    this.router.navigate(['/login']);
   }
 }

@@ -55,9 +55,9 @@ export class AuthService {
   }
 
   setAuth(data: { access_token: string; refresh_token: string }): void {
+    this.isLoggedInSubject.next(true);
     this.tokenService.saveAccessToken(data.access_token);
     this.tokenService.saveRefreshToken(data.refresh_token);
-    this.isLoggedInSubject.next(true);
   }
 
   setRedirectUrl(url: string): void {
@@ -89,6 +89,7 @@ export class AuthService {
   currentUser(): Observable<User> {
     return this.currentUserObservable;
   }
+
 
   refreshToken(): Observable<any> {
     const refreshToken = this.tokenService.getRefreshToken();
