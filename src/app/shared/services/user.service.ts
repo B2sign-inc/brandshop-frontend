@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs/Observable';
 
+import { User } from '../models';
+
 @Injectable()
 export class UserService {
 
@@ -11,4 +13,7 @@ export class UserService {
     return this.apiServie.get('user/verify/' + token);
   }
 
+  update(user): Observable<User> {
+    return this.apiServie.put('user', user);
+  }
 }
