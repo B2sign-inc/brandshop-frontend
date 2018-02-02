@@ -36,6 +36,10 @@
       </div>
     </div>
 
+    <div>
+      <mat-paginator [length]="pageTotal" [pageSize]="perPage" [pageSizeOptions]="pageSizeOptions" (page)="detectPage($event)">
+      </mat-paginator>
+    </div>
     <div class="paging" *ngIf="addresses.length > 0">
       <div>
         <span class="page-item" [ngClass]="{'active': pageNumber === currentPage}" *ngFor="let pageNumber of totalPages" (click)="setPageTo(pageNumber)">

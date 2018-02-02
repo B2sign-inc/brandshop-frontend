@@ -16,6 +16,7 @@ import {
   MatSelectModule,
   MatDialogModule,
   MatButtonModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
@@ -32,6 +33,7 @@ import {
     MatSelectModule,
     MatDialogModule,
     MatButtonModule,
+    MatPaginatorModule,
   ],
   entryComponents: [AddressDialogComponent],
   providers: [AddressService],

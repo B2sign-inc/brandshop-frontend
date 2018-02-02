@@ -27,6 +27,7 @@ export class AddressComponent implements OnInit {
     this.runQuery(1);
   }
 
+  pageSizeOptions = [5, 10, 25, 100];
   currentPage = 1;
   perPage = 15;
   pageTotal: 1;
@@ -98,5 +99,10 @@ export class AddressComponent implements OnInit {
           );
         }
       });
+  }
+
+  detectPage(page) {
+    this.currentPage = page.pageIndex + 1;
+    this.runQuery(this.currentPage);
   }
 }
