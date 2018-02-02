@@ -27,7 +27,6 @@ export class AddressComponent implements OnInit {
     this.runQuery(1);
   }
 
-  pageSizeOptions = [5, 10, 25, 100];
   currentPage = 1;
   perPage = 15;
   pageTotal: 1;
@@ -46,19 +45,17 @@ export class AddressComponent implements OnInit {
   runQuery(pageNum) {
     this.addresses = [];
 
-    this.addressService.query({ 'page': pageNum }).subscribe(
-      data => {
-        if (data) {
-          this.addresses = data['data'];
-          this.currentPage = data['meta'].current_page;
-          this.perPage = data['meta'].per_page;
-          this.pageFrom = data['meta'].from;
-          this.pageTo = data['meta'].to;
-          this.pageTotal = data['meta'].total;
-          this.totalPages = Array.from(new Array(Math.ceil(this.pageTotal / this.perPage)), (val, index) => index + 1);
-        }
+    this.addressService.query({ page: pageNum }).subscribe(data => {
+      if (data) {
+        this.addresses = data['data'];
+        this.currentPage = data['meta'].current_page;
+        this.perPage = data['meta'].per_page;
+        this.pageFrom = data['meta'].from;
+        this.pageTo = data['meta'].to;
+        this.pageTotal = data['meta'].total;
+        this.totalPages = Array.from(new Array(Math.ceil(this.pageTotal / this.perPage)), (val, index) => index + 1);
       }
-    );
+    });
   }
 
   destroy(id) {
@@ -99,10 +96,5 @@ export class AddressComponent implements OnInit {
           );
         }
       });
-  }
-
-  detectPage(page) {
-    this.currentPage = page.pageIndex + 1;
-    this.runQuery(this.currentPage);
   }
 }

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
 import { Address } from '../models';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AddressService {
@@ -12,12 +11,8 @@ export class AddressService {
     private apiService: ApiService
   ) { }
 
-  query(page = 1, limit = 15): Observable<any> {
-    let params = new HttpParams();
-    params.append('page', page.toString());
-    params.append('limit', limit.toString());
-
-    return this.apiService.get('addresses', params).map(data => data);
+  query({page = 1, limit = 15}: {page?: number; limit?: number}): Observable<any> {
+    return this.apiService.get('addresses', {page, limit});
   }
 
   get(id): Observable<Address> {

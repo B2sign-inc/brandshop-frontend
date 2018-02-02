@@ -20,7 +20,7 @@ export class ApiService {
     return new HttpHeaders(headersConfig);
   }
 
-  get(uri: string, params: HttpParams = new HttpParams()): Observable<any> {
+  get(uri: string, params = {}): Observable<any> {
     return this.http.get(`${API_URL}/${uri}`, { params });
   }
 
