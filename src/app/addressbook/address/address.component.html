@@ -44,8 +44,15 @@
       </div>
 
       <div>
-        Items per page:
-        <span>{{ perPage }}</span>,
+        <span>
+          <mat-form-field>
+            <mat-select placeholder="Items Per Page" #pageSizeOption [value]="perPage" (change)="setPageSize(pageSizeOption.value)">
+              <mat-option *ngFor="let pso of pageSizeOptions" [value]="pso">
+                {{ pso }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </span>,
         <span>{{ pageFrom }}</span> -
         <span>{{ pageTo }}</span> of
         <span>{{ pageTotal }}</span>

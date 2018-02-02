@@ -27,6 +27,7 @@ export class AddressComponent implements OnInit {
     this.runQuery(1);
   }
 
+  pageSizeOptions = [5, 15, 50, 100];
   currentPage = 1;
   perPage = 15;
   pageTotal: 1;
@@ -42,10 +43,15 @@ export class AddressComponent implements OnInit {
     this.runQuery(pageNum);
   }
 
+  setPageSize(limit) {
+    this.perPage = limit;
+    this.runQuery(1);
+  }
+
   runQuery(pageNum) {
     this.addresses = [];
 
-    this.addressService.query({ page: pageNum }).subscribe(data => {
+    this.addressService.query({ page: pageNum, limit: this.perPage }).subscribe(data => {
       if (data) {
         this.addresses = data['data'];
         this.currentPage = data['meta'].current_page;

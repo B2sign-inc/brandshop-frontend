@@ -29,6 +29,11 @@
       flex: 1;
       overflow: hidden;
       word-wrap: break-word;
+
+      .default_addr {
+        display: inline-block;
+        width: 50px;
+      }
     }
 
     .paging {
@@ -40,12 +45,17 @@
 
       div {
         display: inline-block;
-        margin-right: 20px;
+        margin-right: 30px;
       }
 
       .page-item {
         cursor: pointer;
         margin-left: 15px;
+      }
+
+      .mat-form-field {
+        width: 75px;
+        text-align: center;
       }
     }
   }
