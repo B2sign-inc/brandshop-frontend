@@ -8,19 +8,24 @@ import { CartResolver } from './cart/cart-resolver.service';
 const routes: Routes = [
   {
     path: 'checkout',
-    redirectTo: 'checkout/cart',
     canActivate: [AuthGuard],
-    pathMatch: 'full'
-  }, {
-    path: 'checkout/cart',
-    component: CartComponent,
-    resolve: {
-      isLoaded: CartResolver
-    }
-  }, {
-    path: 'checkout/delivery',
-    component: DeliveryComponent,
-  }
+    children: [
+      {
+        path: '',
+        redirectTo: 'cart',
+        pathMatch: 'full',
+      }, {
+        path: 'cart',
+        component: CartComponent,
+        resolve: {
+          isLoaded: CartResolver
+        }
+      }, {
+        path: 'delivery',
+        component: DeliveryComponent,
+      }
+    ]
+  },
 ];
 
 @NgModule({
