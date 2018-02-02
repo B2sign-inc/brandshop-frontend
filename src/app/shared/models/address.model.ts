@@ -9,6 +9,25 @@ export class Address {
   state: string;
   telephone: string;
 
+  toString(): string {
+    return `${this.first_name} ${this.last_name}, ${this.street_address} ${this.extra_address}, ${this.city}, ${this.state}, ${this.postcode}`;
+  }
+
+  static cast(o): Address {
+    let address = new Address();
+    address.id = o.id;
+    address.first_name = o.first_name;
+    address.last_name = o.last_name;
+    address.street_address = o.street_address;
+    address.extra_address = o.extra_address;
+    address.postcode = o.postcode;
+    address.city = o.city;
+    address.state = o.state;
+    address.telephone = o.telephone;
+
+    return address;
+  }
+
   usa_states = [
     'Alabama',
     'Alaska',

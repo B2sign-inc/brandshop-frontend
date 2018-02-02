@@ -1,3 +1,13 @@
 <mat-card>
-
+  <button mat-raised-button color="primary">New</button>
+  <mat-card *ngFor="let address of addresses" class="address-card" [class.active]="selectedAddress === address" (click)="selectedAddress = address">
+    <ul class="address-list">
+      <li class="name">{{ address.first_name }} {{ address.last_name }}</li>
+      <li>{{ address.street_address }} {{ address.extra_address }}</li>
+      <li>{{ address.city }}, {{ address.state }}, {{ address.postcode }}</li>
+      <li>{{ address.telephone }}</li>
+    </ul>
+  </mat-card>
+  <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)">
+  </mat-paginator>
 </mat-card>
