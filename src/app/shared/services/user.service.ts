@@ -16,4 +16,8 @@ export class UserService {
   update(user): Observable<User> {
     return this.apiServie.put('user', user);
   }
+
+  updateAddress(data: {type: string, id: string}): Observable<any> {
+    return this.apiServie.put('user/address/' + data.id, data);
+  }
 }

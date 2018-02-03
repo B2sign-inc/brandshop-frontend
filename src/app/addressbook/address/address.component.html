@@ -20,6 +20,7 @@
         <div class="mat-header-cell">Zipcode</div>
         <div class="mat-header-cell">Telephone</div>
         <div class="mat-header-cell"></div>
+        <div class="mat-header-cell"></div>
       </div>
       <div class="mat-row" *ngFor="let address of addresses; index as i;">
         <div class="mat-cell">{{address.first_name+' '+address.last_name}}</div>
@@ -29,6 +30,28 @@
         <div class="mat-cell">{{address.state}}</div>
         <div class="mat-cell">{{address.postcode}}</div>
         <div class="mat-cell">{{address.telephone}}</div>
+        <div class="mat-cell">
+          <span class="default_addr" *ngIf="user.default_billing !== address.id; else defaultBillingAddressContent">
+            <button mat-raised-button title="Set Default Billing Address" (click)="setDefaultAddress('billing', address.id)">
+              Billing
+            </button>
+          </span>
+          <ng-template #defaultBillingAddressContent>
+            <span class="default-addr-icon">
+              <mat-icon>attach_money</mat-icon>
+            </span>
+          </ng-template>
+          <span class="default_addr" *ngIf="user.default_shipping !== address.id; else defaultShippingAddressContent">
+            <button mat-raised-button title="Set Default Shipping Address" (click)="setDefaultAddress('shipping', address.id)">
+              Shipping
+            </button>
+          </span>
+          <ng-template #defaultShippingAddressContent>
+            <span class="default-addr-icon">
+              <mat-icon>local_airport</mat-icon>
+            </span>
+          </ng-template>
+        </div>
         <div class="mat-cell">
           <button mat-raised-button (click)="openAddressDialog(i)">Edit</button>
           <button mat-raised-button color="warn" (click)="destroy(i)">Delete</button>

@@ -30,9 +30,14 @@
       overflow: hidden;
       word-wrap: break-word;
 
-      .default_addr {
+      .default-addr-icon {
         display: inline-block;
-        width: 50px;
+        width: 88px;
+        vertical-align: middle;
+        text-align: center;
+        padding: 4px 0px;
+        color: #ffffff;
+        background: #337ab7;
       }
     }
 
@@ -50,7 +55,27 @@
 
       .page-item {
         cursor: pointer;
-        margin-left: 15px;
+        padding: 6px 12px;
+        color: #337ab7;
+        background: #ffffff;
+        border-top: 1px solid #e2e2e2;
+        border-bottom: 1px solid #e2e2e2;
+        border-left: 1px solid #e2e2e2;
+      }
+
+      .page-item:last-child {
+        border-right: 1px solid #e2e2e2;
+      }
+
+      .page-item:hover {
+        background: #EEEEEE;
+      }
+
+      .active, .active:hover {
+        cursor: default;
+        background: #337ab7;
+        border: none;
+        color: #ffffff;
       }
 
       .mat-form-field {

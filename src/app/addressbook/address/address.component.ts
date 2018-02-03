@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Address } from '../../shared/models';
-import { AddressService } from '../../shared/services';
+import { User, Address } from '../../shared/models';
+import { AuthService, AddressService, UserService } from '../../shared/services';
 
 import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
 
@@ -20,11 +20,16 @@ export class AddressComponent implements OnInit {
 
   constructor(
     private addressService: AddressService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
-    this.runQuery(1);
+    this.authService.currentUser().subscribe(user => {
+      this.user = user;
+      this.runQuery(1);
+    });
   }
 
   pageSizeOptions = [5, 15, 50, 100];
@@ -35,6 +40,7 @@ export class AddressComponent implements OnInit {
   pageTo = 0;
   totalPages: Array<number> = [1];
 
+  user: User;
   addresses: Address[];
   address: Address = new Address();
 
@@ -102,5 +108,17 @@ export class AddressComponent implements OnInit {
           );
         }
       });
+  }
+
+  setDefaultAddress(type, id) {
+    const data = {type: type, id: id};
+    this.userService.updateAddress(data).subscribe(
+      result => {
+        this.authService.populate();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
