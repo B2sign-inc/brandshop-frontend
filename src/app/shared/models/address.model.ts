@@ -8,6 +8,9 @@ export class Address {
   city: string;
   state: string;
   telephone: string;
+  isDefaultShippingAddress: boolean;
+  isDefaultBillingAddress: boolean;
+
 
   toString(): string {
     return `${this.first_name} ${this.last_name}, ${this.street_address} ${this.extra_address}, ${this.city}, ${this.state}, ${this.postcode}`;
@@ -24,6 +27,9 @@ export class Address {
     address.city = o.city;
     address.state = o.state;
     address.telephone = o.telephone;
+
+    address.isDefaultShippingAddress = !!o.isDefaultShippingAddress;
+    address.isDefaultBillingAddress = !!o.isDefaultBillingAddress;
 
     return address;
   }

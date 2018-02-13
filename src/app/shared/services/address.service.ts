@@ -11,6 +11,10 @@ export class AddressService {
     private apiService: ApiService
   ) { }
 
+  all(): Observable<Address[]> {
+    return this.apiService.get('addresses/all');
+  }
+
   query({page = 1, limit = 15}: {page?: number; limit?: number}): Observable<any> {
     return this.apiService.get('addresses', {page, limit});
   }

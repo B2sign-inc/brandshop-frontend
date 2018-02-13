@@ -9,7 +9,10 @@ export class ProductService {
   constructor(private apiService: ApiService) { }
 
   get(id: number): Observable<Product> {
-    return this.apiService.get(`products/${id}`);
+    return this.apiService.get(`products/${id}`).map(data => {
+      data['data'].price /= 100;
+      return data;
+    });
   }
 
 }
