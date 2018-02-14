@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AddressService, Address } from '../../../shared';
+import { AddressService, Address, ShippingMethodService } from '../../../shared';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UsStateService } from '../../../shared/services/us-state.service';
-import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-address',
@@ -25,7 +24,7 @@ export class AddressComponent implements OnInit {
   constructor(
     private addressService: AddressService,
     private fb: FormBuilder,
-    private usStateService: UsStateService
+    private usStateService: UsStateService,
   ) {
     this.usStateService.getStates().subscribe(usStates => this.usStates = usStates);
     this.createShippingAddressForm();

@@ -1,3 +1,10 @@
-<p>
-  shipping method works!
-</p>
+<mat-card>
+  <mat-card-title>Shipping Method</mat-card-title>
+  <mat-card-content>
+    <mat-radio-group class="shipping-method-group"  [(ngModel)]="selectedShippingMethod">
+      <mat-radio-button class="shipping-method-item"  *ngFor="let shippingMethod of shippingMethods" [value]="shippingMethod">
+        {{ shippingMethod.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </mat-card-content>
+</mat-card>

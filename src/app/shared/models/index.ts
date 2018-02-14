@@ -6,3 +6,4 @@ export * from './cart.model';
 export * from './address.model';
 export * from './delivery-option.model';
 export * from './email-message.model';
+export * from './shipping-method.model';

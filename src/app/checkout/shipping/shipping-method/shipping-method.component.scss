@@ -1,0 +1,8 @@
+.shipping-method-group {
+  display: inline-flex;
+  flex-direction: column;
+
+  .shipping-method-item {
+    margin: 5px 0;
+  }
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShippingMethod, ShippingMethodService } from '../../../shared';
 
 @Component({
   selector: 'app-shipping-method',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShippingMethodComponent implements OnInit {
 
-  constructor() { }
+  selectedShippingMethod: ShippingMethod;
+
+  shippingMethods: ShippingMethod[];
+
+  constructor(private shippingMethodService: ShippingMethodService) { }
 
   ngOnInit() {
+    this.shippingMethodService.all().subscribe(data => {
+      this.shippingMethods = data['data'];
+      this.selectedShippingMethod = this.shippingMethods[0];
+    });
   }
-
 }
