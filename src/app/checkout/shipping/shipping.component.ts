@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AddressService, Address, ShippingMethodService } from '../../../shared';
+import { AddressService, Address, ShippingMethod, ShippingMethodService, UsStateService, OrderService } from '../../shared';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { UsStateService } from '../../../shared/services/us-state.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+  selector: 'app-shipping',
+  templateUrl: './shipping.component.html',
+  styleUrls: ['./shipping.component.scss']
 })
-export class AddressComponent implements OnInit {
+export class ShippingComponent implements OnInit {
+
+  get canPlaceOrder(): boolean {
+    return (!this.billingAddressForm.valid || !this.shippingAddressForm.valid) && !!this.selectedShippingMethod;
+  }
 
   addresses: Address[];
   usStates: string[];
@@ -21,10 +25,17 @@ export class AddressComponent implements OnInit {
 
   useDifferentBillingAddress: boolean = false;
 
+  selectedShippingMethod: ShippingMethod;
+
+  shippingMethods: ShippingMethod[];
+
   constructor(
     private addressService: AddressService,
     private fb: FormBuilder,
     private usStateService: UsStateService,
+    private shippingMethodService: ShippingMethodService,
+    private orderService: OrderService,
+    private router: Router
   ) {
     this.usStateService.getStates().subscribe(usStates => this.usStates = usStates);
     this.createShippingAddressForm();
@@ -48,6 +59,11 @@ export class AddressComponent implements OnInit {
         this.selectedBillingAddress = defaultBillingAddress;
         this.setBillingAddressFormValues(defaultBillingAddress);
       }
+    });
+
+    this.shippingMethodService.all().subscribe(data => {
+      this.shippingMethods = data['data'];
+      this.selectedShippingMethod = this.shippingMethods[0];
     });
   }
 
@@ -102,4 +118,36 @@ export class AddressComponent implements OnInit {
   setBillingAddressFormValues(address: Address) {
     this.setAddressFormValues(this.billingAddressForm, address);
   }
+
+  placeOrder() {
+    let params = {
+      shipping: this.shippingAddressForm.value,
+      use_different_billing_address: this.useDifferentBillingAddress,
+      billing: this.billingAddressForm.value,
+      shipping_method_id: this.selectedShippingMethod.id,
+    }
+
+    this.orderService.placeOrder(params).subscribe(
+      data => {
+        this.router.navigate([`checkout/${data.id}/payment`]);
+      }, error => {
+        this.renderFormError(error);
+      }
+    );
+  }
+
+  renderFormError(error) {
+    const errors = error.error ? error.error.errors : null;
+    if (errors) {
+      for (let field in errors) {
+        let fields = field.split('.');
+        if (fields[0] === 'shipping') {
+          this.shippingAddressForm.get(fields[1]).setErrors({ custom: errors[field].join(' ') })
+        } else if (fields[0] === 'billing') {
+          this.billingAddressForm.get(fields[1]).setErrors({ custom: errors[field].join(' ') })
+        }
+      }
+    }
+  }
+
 }

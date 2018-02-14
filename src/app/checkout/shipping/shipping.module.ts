@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShippingMethodComponent } from './shipping-method/shipping-method.component';
-import { AddressComponent } from './address/address.component';
-import { ShippingComponent } from './shipping/shipping.component';
+import { ShippingComponent } from './shipping.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatRadioModule, MatButtonModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { UsStateService, ShippingMethodService } from '../../shared';
+import { UsStateService, ShippingMethodService, OrderService } from '../../shared';
 
 @NgModule({
   imports: [
@@ -23,7 +21,7 @@ import { UsStateService, ShippingMethodService } from '../../shared';
     MatSelectModule,
     MatCheckboxModule,
   ],
-  providers: [UsStateService, ShippingMethodService],
-  declarations: [ShippingMethodComponent, AddressComponent, ShippingComponent],
+  providers: [UsStateService, ShippingMethodService, OrderService],
+  declarations: [ShippingComponent],
 })
 export class ShippingModule { }

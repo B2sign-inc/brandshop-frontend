@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CheckoutRoutingModule } from './checkout-routing.module';
 import { CartModule } from './cart/cart.module';
 import { ShippingModule } from './shipping/shipping.module';
+import { PaymentModule } from './payment/payment.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { ShippingModule } from './shipping/shipping.module';
     CheckoutRoutingModule,
     CartModule,
     ShippingModule,
+    PaymentModule,
   ],
   declarations: []
 })

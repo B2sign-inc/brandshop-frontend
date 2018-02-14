@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
-import { ShippingComponent } from './shipping/shipping/shipping.component';
+import { ShippingComponent } from './shipping/shipping.component';
 import { AuthGuard } from '../shared';
 import { CartResolver } from './cart/cart-resolver.service';
+import { PaymentComponent } from './payment/payment.component';
+import { PaymentOrderResolver } from './payment/payment-order-resolver.service';
 
 const routes: Routes = [
   {
@@ -21,8 +23,14 @@ const routes: Routes = [
           isLoaded: CartResolver
         }
       }, {
-        path: 'delivery',
+        path: 'shipping',
         component: ShippingComponent,
+      }, {
+        path: ':orderId/payment',
+        component: PaymentComponent,
+        resolve: {
+          order: PaymentOrderResolver
+        }
       }
     ]
   },
@@ -31,6 +39,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CartResolver]
+  providers: [CartResolver, PaymentOrderResolver]
 })
 export class CheckoutRoutingModule { }

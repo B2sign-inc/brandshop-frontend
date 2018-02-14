@@ -1,0 +1,21 @@
+.address-container {
+  .select-shipping-address-container {
+    margin: 10px 0;
+  }
+
+  .use-different-billing-address-container {
+    margin: 10px 0;
+  }
+}
+
+.shipping-method-container {
+  .shipping-method-group {
+    display: inline-flex;
+    flex-direction: column;
+
+    .shipping-method-item {
+      margin: 5px 0;
+    }
+  }
+}
+

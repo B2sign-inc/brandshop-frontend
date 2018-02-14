@@ -11,3 +11,4 @@ export * from './address.service';
 export * from './email-message.service';
 export * from './us-state.service';
 export * from './shipping-method.service';
+export * from './order.service';
