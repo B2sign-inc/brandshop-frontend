@@ -13,6 +13,8 @@ export class PaymentOrderResolver implements Resolve<Order> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Order> {
     let id = route.paramMap.get('orderId');
 
-    return this.orderService.get(id).take(1);
+    return this.orderService.get(id).map(data => {
+      return data['data'];
+    }).take(1);
   }
 }

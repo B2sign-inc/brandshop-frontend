@@ -6,6 +6,7 @@ import { AuthGuard } from '../shared';
 import { CartResolver } from './cart/cart-resolver.service';
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentOrderResolver } from './payment/payment-order-resolver.service';
+import { PaymentTokenResolver } from './payment/payment-token-resolver.service';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
         path: ':orderId/payment',
         component: PaymentComponent,
         resolve: {
-          order: PaymentOrderResolver
+          order: PaymentOrderResolver,
+          token: PaymentTokenResolver,
         }
       }
     ]
@@ -39,6 +41,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CartResolver, PaymentOrderResolver]
+  providers: [CartResolver, PaymentOrderResolver, PaymentTokenResolver]
 })
 export class CheckoutRoutingModule { }

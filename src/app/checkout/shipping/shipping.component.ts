@@ -129,7 +129,8 @@ export class ShippingComponent implements OnInit {
 
     this.orderService.placeOrder(params).subscribe(
       data => {
-        this.router.navigate([`checkout/${data.id}/payment`]);
+        const order = data['data'];
+        this.router.navigate([`checkout/${order.id}/payment`]);
       }, error => {
         this.renderFormError(error);
       }

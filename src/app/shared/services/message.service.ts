@@ -36,4 +36,16 @@ export class MessageService {
     return this.message(text, action, config);
   }
 
+  /**
+   * example
+   * @param text
+   * @param action
+   * @param config
+   */
+  error(text: string, action: string = 'CLOSE', config?: MatSnackBarConfig) {
+    config = {...{panelClass: 'info'}, ...config};
+
+    return this.message(text, action, config);
+  }
+
 }

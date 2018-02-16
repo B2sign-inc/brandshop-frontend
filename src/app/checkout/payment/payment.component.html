@@ -1,3 +1,14 @@
 <p>
-  payment works!
+  Amount: {{ order.amount }}
 </p>
+
+<div>
+  <div class="bt-drop-in-wrapper">
+    <div id="bt-dropin"></div>
+  </div>
+  <div *ngIf="paid">
+    Paid Successfully
+  </div>
+  <button mat-raised-button color="primary" [disabled]="!payInstance || submitting || paid" (click)="pay()">Pay</button>
+</div>
+
