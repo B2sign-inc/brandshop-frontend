@@ -7,7 +7,7 @@ import { UserComponent } from './user.component';
 import { PasswordComponent } from './password/password.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
-import { AddressComponent } from './address-book/address/address.component';
+import { AddressListComponent } from './address-book/address-list/address-list.component';
 import { MessageListComponent } from './email-message/message-list/message-list.component';
 import { MessageDetailComponent } from './email-message/message-detail/message-detail.component';
 
@@ -25,7 +25,7 @@ const routes: Routes = [
         pathMatch: 'full'
       }, {
         path: 'addresses',
-        component: AddressComponent,
+        component: AddressListComponent,
       }, {
         path: 'messages',
         component: MessageListComponent,

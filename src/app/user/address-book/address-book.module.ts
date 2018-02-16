@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AddressComponent } from './address/address.component';
+import { AddressListComponent } from './address-list/address-list.component';
 import { AddressDialogComponent } from './address-dialog/address-dialog.component';
 
 import { AddressService } from '../../shared/services/';
@@ -35,6 +35,6 @@ import {
   ],
   entryComponents: [AddressDialogComponent],
   providers: [AddressService],
-  declarations: [AddressComponent, AddressDialogComponent]
+  declarations: [AddressListComponent, AddressDialogComponent]
 })
 export class AddressBookModule { }

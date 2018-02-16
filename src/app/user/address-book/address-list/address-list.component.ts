@@ -11,11 +11,11 @@ import {
 } from '@angular/material';
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+  selector: 'app-address-list',
+  templateUrl: './address-list.component.html',
+  styleUrls: ['./address-list.component.scss']
 })
-export class AddressComponent implements OnInit {
+export class AddressListComponent implements OnInit {
 
   constructor(
     private addressService: AddressService,
