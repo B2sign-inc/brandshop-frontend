@@ -21,4 +21,8 @@ export class OrderService {
   get(id): Observable<Order> {
     return this.apiService.get(`orders/${id}`);
   }
+
+  query({ page = 1, limit = 15 }: { page?: number, limit?: number }): Observable<Order[]> {
+    return this.apiService.get('orders', { page, limit });
+  }
 }

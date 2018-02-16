@@ -5,24 +5,36 @@ import { AuthGuard } from '../shared';
 import { VerifyComponent } from './verify/verify.component';
 import { UserComponent } from './user.component';
 import { PasswordComponent } from './password/password.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 
 const routes: Routes = [
   {
-    path: 'user',
-    component: UserComponent,
-    canActivate: [AuthGuard],
-  }, {
     path: 'user/verify/:token',
     component: VerifyComponent,
   }, {
-    path: 'user/profile',
-    component: ProfileComponent,
+    path: 'user',
     canActivate: [AuthGuard],
-  }, {
-    path: 'user/password',
-    component: PasswordComponent,
-    canActivate: [AuthGuard],
-  },
+    children: [
+      {
+        path: '',
+        component: UserComponent,
+        pathMatch: 'full'
+      }, {
+        path: 'profile',
+        component: ProfileComponent,
+      }, {
+        path: 'password',
+        component: PasswordComponent,
+      }, {
+        path: 'orders',
+        component: OrderListComponent
+      }, {
+        path: 'orders/:id/detail',
+        component: OrderDetailComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

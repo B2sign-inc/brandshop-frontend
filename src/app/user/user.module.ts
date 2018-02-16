@@ -17,6 +17,7 @@ import {
   MatCardModule,
 } from '@angular/material';
 import { PasswordComponent } from './password/password.component';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { PasswordComponent } from './password/password.component';
     FormsModule,
     ReactiveFormsModule,
     UserRoutingModule,
+    OrderModule,
 
     MatToolbarModule,
     MatIconModule,
