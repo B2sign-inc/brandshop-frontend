@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User, Address } from '../../shared/models';
-import { AuthService, AddressService, UserService } from '../../shared/services';
+import { AuthService, AddressService, UserService, User, Address } from '../../../shared';
 
 import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
 

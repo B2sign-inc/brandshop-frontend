@@ -7,6 +7,9 @@ import { UserComponent } from './user.component';
 import { PasswordComponent } from './password/password.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { AddressComponent } from './address-book/address/address.component';
+import { MessageListComponent } from './email-message/message-list/message-list.component';
+import { MessageDetailComponent } from './email-message/message-detail/message-detail.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,15 @@ const routes: Routes = [
         component: UserComponent,
         pathMatch: 'full'
       }, {
+        path: 'addresses',
+        component: AddressComponent,
+      }, {
+        path: 'messages',
+        component: MessageListComponent,
+      }, {
+        path: 'messages/:id',
+        component: MessageDetailComponent,
+      }, {
         path: 'profile',
         component: ProfileComponent,
       }, {
@@ -30,7 +42,7 @@ const routes: Routes = [
         path: 'orders',
         component: OrderListComponent
       }, {
-        path: 'orders/:id/detail',
+        path: 'orders/:id',
         component: OrderDetailComponent
       }
     ]

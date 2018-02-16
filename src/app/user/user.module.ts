@@ -18,6 +18,8 @@ import {
 } from '@angular/material';
 import { PasswordComponent } from './password/password.component';
 import { OrderModule } from './order/order.module';
+import { AddressBookModule } from './address-book/address-book.module';
+import { EmailMessageModule } from './email-message/email-message.module';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { OrderModule } from './order/order.module';
     ReactiveFormsModule,
     UserRoutingModule,
     OrderModule,
+    AddressBookModule,
+    EmailMessageModule,
 
     MatToolbarModule,
     MatIconModule,

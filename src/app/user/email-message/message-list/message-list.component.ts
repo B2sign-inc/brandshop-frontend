@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EmailMessage } from '../../shared/models';
-import { EmailMessageService } from '../../shared/services';
+import { EmailMessageService, EmailMessage } from '../../../shared';
 
 @Component({
-  selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.scss']
+  selector: 'app-message-list',
+  templateUrl: './message-list.component.html',
+  styleUrls: ['./message-list.component.scss']
 })
-export class MessageComponent implements OnInit {
+export class MessageListComponent implements OnInit {
 
   constructor(
     private emailMessageService: EmailMessageService

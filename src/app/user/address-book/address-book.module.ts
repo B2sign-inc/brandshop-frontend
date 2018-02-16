@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AddressbookRoutingModule } from './addressbook-routing.module';
 import { AddressComponent } from './address/address.component';
 import { AddressDialogComponent } from './address-dialog/address-dialog.component';
 
-import { AddressService } from '../shared/services/';
+import { AddressService } from '../../shared/services/';
 
 import {
   MatIconModule,
@@ -22,7 +21,6 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    AddressbookRoutingModule,
     FormsModule,
     ReactiveFormsModule,
 
@@ -39,4 +37,4 @@ import {
   providers: [AddressService],
   declarations: [AddressComponent, AddressDialogComponent]
 })
-export class AddressbookModule { }
+export class AddressBookModule { }
