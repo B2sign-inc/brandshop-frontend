@@ -1,3 +1,8 @@
-<p>
-  order-list works!
-</p>
+<div *ngFor="let order of orders">
+  {{ order|json }}
+</div>
+
+<div class="paginator">
+  <mat-paginator [length]="total" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginatorOnChange($event)">
+  </mat-paginator>
+</div>
