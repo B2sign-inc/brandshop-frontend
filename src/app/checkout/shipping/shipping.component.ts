@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddressService, Address, ShippingMethod, ShippingMethodService, UsStateService, OrderService } from '../../shared';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AbstractControl } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-shipping',
@@ -9,10 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./shipping.component.scss']
 })
 export class ShippingComponent implements OnInit {
-
-  get canPlaceOrder(): boolean {
-    return (!this.billingAddressForm.valid || !this.shippingAddressForm.valid) && !!this.selectedShippingMethod;
-  }
 
   addresses: Address[];
   usStates: string[];
@@ -25,9 +22,9 @@ export class ShippingComponent implements OnInit {
 
   useDifferentBillingAddress: boolean = false;
 
-  selectedShippingMethod: ShippingMethod;
-
   shippingMethods: ShippingMethod[];
+
+  form: FormGroup;
 
   constructor(
     private addressService: AddressService,
@@ -38,8 +35,13 @@ export class ShippingComponent implements OnInit {
     private router: Router
   ) {
     this.usStateService.getStates().subscribe(usStates => this.usStates = usStates);
-    this.createShippingAddressForm();
-    this.createBillingAddressForm();
+
+    this.form = this.fb.group({
+      shipping: this.initAddressFormValidator(this.createAddressForm()),
+      billing: this.createAddressForm(),
+      use_different_billing_address: [false],
+      shipping_method_id: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
@@ -63,7 +65,30 @@ export class ShippingComponent implements OnInit {
 
     this.shippingMethodService.all().subscribe(data => {
       this.shippingMethods = data['data'];
-      this.selectedShippingMethod = this.shippingMethods[0];
+      this.form.patchValue({shipping_method_id: this.shippingMethods[0].id});
+    });
+
+    this.form.get('use_different_billing_address').valueChanges.subscribe(value => {
+      if (value) {
+        this.initAddressFormValidator(this.form.get('billing'));
+      } else {
+        this.removeAllAddressFormValidator(this.form.get('billing'));
+      }
+    })
+  }
+
+
+  createAddressForm() {
+    return this.fb.group({
+      first_name: ['', []],
+      last_name: ['', []],
+      street_address: ['', []],
+      extra_address: ['', []],
+      city: ['', []],
+      state: ['', []],
+      postcode: ['', []],
+      telephone: ['', []],
+      id: ['', []],
     });
   }
 
@@ -75,18 +100,26 @@ export class ShippingComponent implements OnInit {
     this.setBillingAddressFormValues($event.value);
   }
 
-  createAddressForm() {
-    return this.fb.group({
-      first_name: ['', [Validators.required, Validators.min(3)]],
-      last_name: ['', [Validators.required, Validators.min(3)]],
-      street_address: ['', [Validators.required, Validators.min(3)]],
-      extra_address: ['', []],
-      city: ['', [Validators.required, Validators.min(3)]],
-      state: ['', [Validators.required, Validators.min(3)]],
-      postcode: ['', [Validators.required, Validators.min(3)]],
-      telephone: ['', []],
-      id: ['', []],
-    });
+  initAddressFormValidator(ac: AbstractControl): AbstractControl {
+    ac.get('first_name').setValidators([Validators.required]);
+    ac.get('last_name').setValidators([Validators.required]);
+    ac.get('street_address').setValidators([Validators.required]);
+    ac.get('city').setValidators([Validators.required]);
+    ac.get('state').setValidators([Validators.required]);
+    ac.get('postcode').setValidators([Validators.required]);
+    ac.get('telephone').setValidators([Validators.required]);
+    return ac;
+  }
+
+  removeAllAddressFormValidator(ac: AbstractControl): AbstractControl {
+    ac.get('first_name').setValidators(null);
+    ac.get('last_name').setValidators(null);
+    ac.get('street_address').setValidators(null);
+    ac.get('city').setValidators(null);
+    ac.get('state').setValidators(null);
+    ac.get('postcode').setValidators(null);
+    ac.get('telephone').setValidators(null);
+    return ac;
   }
 
   createShippingAddressForm(): void {
@@ -97,8 +130,8 @@ export class ShippingComponent implements OnInit {
     this.billingAddressForm = this.createAddressForm();
   }
 
-  setAddressFormValues(formGroup: FormGroup, address: Address) {
-    formGroup.setValue({
+  setAddressFormValues(ac: AbstractControl, address: Address) {
+    ac.setValue({
       id: address.id,
       first_name: address.first_name,
       last_name: address.last_name,
@@ -112,22 +145,15 @@ export class ShippingComponent implements OnInit {
   }
 
   setShippingAddressFormValues(address: Address) {
-    this.setAddressFormValues(this.shippingAddressForm, address);
+    this.setAddressFormValues(this.form.get('shipping'), address);
   }
 
   setBillingAddressFormValues(address: Address) {
-    this.setAddressFormValues(this.billingAddressForm, address);
+    this.setAddressFormValues(this.form.get('billing'), address);
   }
 
   placeOrder() {
-    let params = {
-      shipping: this.shippingAddressForm.value,
-      use_different_billing_address: this.useDifferentBillingAddress,
-      billing: this.billingAddressForm.value,
-      shipping_method_id: this.selectedShippingMethod.id,
-    }
-
-    this.orderService.placeOrder(params).subscribe(
+    this.orderService.placeOrder(this.form.value).subscribe(
       data => {
         const order = data['data'];
         this.router.navigate([`checkout/${order.id}/payment`]);
@@ -142,11 +168,7 @@ export class ShippingComponent implements OnInit {
     if (errors) {
       for (let field in errors) {
         let fields = field.split('.');
-        if (fields[0] === 'shipping') {
-          this.shippingAddressForm.get(fields[1]).setErrors({ custom: errors[field].join(' ') })
-        } else if (fields[0] === 'billing') {
-          this.billingAddressForm.get(fields[1]).setErrors({ custom: errors[field].join(' ') })
-        }
+        this.form.get(field).setErrors({ custom: errors[field].join(' ') })
       }
     }
   }

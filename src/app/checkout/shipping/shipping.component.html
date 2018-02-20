@@ -1,169 +1,66 @@
 <div fxLayout="row" flex fxLayoutGap="20px">
-  <div fxFlex="50" class="address-container">
-    <mat-card>
-      <mat-card-title>Your address</mat-card-title>
-      <mat-card-content>
-        <div class="select-shipping-address-container">
-          <mat-select [(value)]="selectedShippingAddress" (selectionChange)="shippingAddressChange($event)">
-            <mat-option *ngFor="let address of addresses" [value]="address">{{ address.toString() }}</mat-option>
-          </mat-select>
-        </div>
-        <form [formGroup]="shippingAddressForm">
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="First Name" formControlName="first_name" required />
-              <mat-error *ngIf="shippingAddressForm.controls.first_name.invalid">
-                First Name is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('first_name').hasError('custom')">
-                {{ shippingAddressForm.get('first_name').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Last Name" formControlName="last_name" required />
-              <mat-error *ngIf="shippingAddressForm.controls.last_name.invalid">
-                Last name is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('last_name').hasError('custom')">
-                {{ shippingAddressForm.get('last_name').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Street Address" formControlName="street_address" required />
-              <mat-error *ngIf="shippingAddressForm.controls.street_address.invalid">
-                Street Address is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('street_address').hasError('custom')">
-                {{ shippingAddressForm.get('street_address').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Extra Address" formControlName="extra_address" />
-              <mat-error *ngIf="shippingAddressForm.get('extra_address').hasError('custom')">
-                {{ shippingAddressForm.get('extra_address').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="City" formControlName="city" required />
-              <mat-error *ngIf="shippingAddressForm.controls.city.invalid">
-                City is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('city').hasError('custom')">
-                {{ shippingAddressForm.get('city').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field>
-              <mat-select placeholder="State" formControlName="state" required>
-                <mat-option *ngFor="let state of usStates" [value]="state">
-                  {{ state }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="shippingAddressForm.get('state').hasError('required')">
-                State is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('state').hasError('custom')">
-                {{ shippingAddressForm.get('state').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Zipcode" formControlName="postcode" required />
-              <mat-error *ngIf="shippingAddressForm.controls.postcode.invalid">
-                Zipcode is
-                <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="shippingAddressForm.get('postcode').hasError('custom')">
-                {{ shippingAddressForm.get('postcode').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Telephone" formControlName="telephone" />
-              <mat-error *ngIf="shippingAddressForm.get('telephone').hasError('custom')">
-                {{ shippingAddressForm.get('telephone').getError('custom') }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </form>
-
-        <div class="use-different-billing-address-container">
-          <mat-checkbox [(ngModel)]="useDifferentBillingAddress">Use different billing address</mat-checkbox>
-        </div>
-
-        <div *ngIf="useDifferentBillingAddress" class="billing-address-container">
-          <hr>
-
+  <form [formGroup]="form" (ngSubmit)="placeOrder()">
+    <div fxFlex="50" class="address-container">
+      <mat-card>
+        <mat-card-title>Your address</mat-card-title>
+        <mat-card-content>
           <div class="select-shipping-address-container">
-            <mat-select [(value)]="selectedBillingAddress" (selectionChange)="billingAddressChange($event)">
+            <mat-select [(value)]="selectedShippingAddress" (selectionChange)="shippingAddressChange($event)">
               <mat-option *ngFor="let address of addresses" [value]="address">{{ address.toString() }}</mat-option>
             </mat-select>
           </div>
-
-          <form [formGroup]="billingAddressForm">
+          <div formGroupName="shipping">
             <div>
               <mat-form-field>
                 <input matInput placeholder="First Name" formControlName="first_name" required />
-                <mat-error *ngIf="billingAddressForm.controls.first_name.invalid">
+                <mat-error *ngIf="form.controls.shipping.controls.first_name.invalid">
                   First Name is
                   <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="billingAddressForm.get('first_name').hasError('custom')">
-                  {{ billingAddressForm.get('first_name').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.first_name').hasError('custom')">
+                  {{ form.get('shipping.first_name').getError('custom') }}
                 </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="Last Name" formControlName="last_name" required />
-                <mat-error *ngIf="billingAddressForm.controls.last_name.invalid">
+                <mat-error *ngIf="form.controls.shipping.controls.last_name.invalid">
                   Last name is
                   <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="billingAddressForm.get('last_name').hasError('custom')">
-                  {{ billingAddressForm.get('last_name').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.last_name').hasError('custom')">
+                  {{ form.get('shipping.last_name').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
                 <input matInput placeholder="Street Address" formControlName="street_address" required />
-                <mat-error *ngIf="billingAddressForm.controls.street_address.invalid">
+                <mat-error *ngIf="form.controls.shipping.controls.street_address.invalid">
                   Street Address is
                   <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="billingAddressForm.get('street_address').hasError('custom')">
-                  {{ billingAddressForm.get('street_address').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.street_address').hasError('custom')">
+                  {{ form.get('shipping.street_address').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
                 <input matInput placeholder="Extra Address" formControlName="extra_address" />
-                <mat-error *ngIf="billingAddressForm.get('extra_address').hasError('custom')">
-                  {{ billingAddressForm.get('extra_address').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.extra_address').hasError('custom')">
+                  {{ form.get('shipping.extra_address').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
                 <input matInput placeholder="City" formControlName="city" required />
-                <mat-error *ngIf="billingAddressForm.controls.city.invalid">
+                <mat-error *ngIf="form.controls.shipping.controls.city.invalid">
                   City is
                   <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="billingAddressForm.get('city').hasError('custom')">
-                  {{ billingAddressForm.get('city').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.city').hasError('custom')">
+                  {{ form.get('shipping.city').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -174,50 +71,155 @@
                     {{ state }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="billingAddressForm.get('state').hasError('required')">
+                <mat-error *ngIf="form.get('shipping.state').hasError('required')">
                   State is
                   <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="form.get('shipping.state').hasError('custom')">
+                  {{ form.get('shipping.state').getError('custom') }}
                 </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="Zipcode" formControlName="postcode" required />
-                <mat-error *ngIf="billingAddressForm.controls.postcode.invalid">
+                <mat-error *ngIf="form.controls.shipping.controls.postcode.invalid">
                   Zipcode is
                   <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="billingAddressForm.get('postcode').hasError('custom')">
-                  {{ billingAddressForm.get('postcode').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.postcode').hasError('custom')">
+                  {{ form.get('shipping.postcode').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
                 <input matInput placeholder="Telephone" formControlName="telephone" />
-                <mat-error *ngIf="billingAddressForm.get('telephone').hasError('custom')">
-                  {{ billingAddressForm.get('telephone').getError('custom') }}
+                <mat-error *ngIf="form.get('shipping.telephone').hasError('custom')">
+                  {{ form.get('shipping.telephone').getError('custom') }}
                 </mat-error>
               </mat-form-field>
             </div>
-          </form>
-        </div>
-      </mat-card-content>
-    </mat-card>
+          </div>
 
-  </div>
-  <div fxFlex="50" class="shipping-method-container">
-    <mat-card>
-      <mat-card-title>Shipping Method</mat-card-title>
-      <mat-card-content>
-        <mat-radio-group class="shipping-method-group" [(ngModel)]="selectedShippingMethod">
-          <mat-radio-button class="shipping-method-item" *ngFor="let shippingMethod of shippingMethods" [value]="shippingMethod">
-            {{ shippingMethod.name }}
-          </mat-radio-button>
-        </mat-radio-group>
-      </mat-card-content>
-    </mat-card>
+          <div class="use-different-billing-address-container">
+            <mat-checkbox formControlName="use_different_billing_address">Use different billing address</mat-checkbox>
+          </div>
 
-    <div style="margin-top: 10px;">
-      <button mat-raised-button color="primary" [disabled]="canPlaceOrder" (click)="placeOrder()">Place Order</button>
+          <div *ngIf="form.get('use_different_billing_address').value" class="billing-address-container">
+            <hr>
+
+            <div class="select-shipping-address-container">
+              <mat-select [(value)]="selectedBillingAddress" (selectionChange)="billingAddressChange($event)">
+                <mat-option *ngFor="let address of addresses" [value]="address">{{ address.toString() }}</mat-option>
+              </mat-select>
+            </div>
+
+            <div formGroupName="billing">
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="First Name" formControlName="first_name" required />
+                  <mat-error *ngIf="form.controls.billing.controls.first_name.invalid">
+                    First Name is
+                    <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="form.get('billing.first_name').hasError('custom')">
+                    {{ form.get('billing.first_name').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Last Name" formControlName="last_name" required />
+                  <mat-error *ngIf="form.controls.billing.controls.last_name.invalid">
+                    Last name is
+                    <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="form.get('billing.last_name').hasError('custom')">
+                    {{ form.get('billing.last_name').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Street Address" formControlName="street_address" required />
+                  <mat-error *ngIf="form.controls.billing.controls.street_address.invalid">
+                    Street Address is
+                    <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="form.get('billing.street_address').hasError('custom')">
+                    {{ form.get('billing.street_address').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Extra Address" formControlName="extra_address" />
+                  <mat-error *ngIf="form.get('billing.extra_address').hasError('custom')">
+                    {{ form.get('billing.extra_address').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="City" formControlName="city" required />
+                  <mat-error *ngIf="form.controls.billing.controls.city.invalid">
+                    City is
+                    <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="form.get('billing.city').hasError('custom')">
+                    {{ form.get('billing.city').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <mat-select placeholder="State" formControlName="state" required>
+                    <mat-option *ngFor="let state of usStates" [value]="state">
+                      {{ state }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.get('billing.state').hasError('required')">
+                    State is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Zipcode" formControlName="postcode" required />
+                  <mat-error *ngIf="form.controls.billing.controls.postcode.invalid">
+                    Zipcode is
+                    <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="form.get('billing.postcode').hasError('custom')">
+                    {{ form.get('billing.postcode').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Telephone" formControlName="telephone" />
+                  <mat-error *ngIf="form.get('billing.telephone').hasError('custom')">
+                    {{ form.get('billing.telephone').getError('custom') }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
     </div>
-  </div>
+    <div fxFlex="50" class="shipping-method-container">
+      <mat-card>
+        <mat-card-title>Shipping Method</mat-card-title>
+        <mat-card-content>
+          <mat-radio-group class="shipping-method-group" formControlName="shipping_method_id">
+            <mat-radio-button class="shipping-method-item" *ngFor="let shippingMethod of shippingMethods" [value]="shippingMethod.id">
+              {{ shippingMethod.name }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+
+      <div style="margin-top: 10px;">
+        <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid">Place Order</button>
+      </div>
+    </div>
+  </form>
 </div>
